@@ -3,24 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.kimjaeeun.mapper.BoardMapper">
-	<select id="getList" resultType="com.kimjaeeun.domain.BoardVO">
+	<select id="getList" resultType="board">
 		select * from tbl_board where bno > 0
 	</select>
 	
- 	<insert id="insert">
- 		insert into tbl_board (bno,title,content,writer)
- 		values (seq_board.nextval, #{title}, #{content},#{writer})
- 	</insert> 		
- 	
-	<insert id="insertSelectKey">
-		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
-			select seq_board.nextval from dual
+ 	<!-- 게시글 작성하기 -->
+  	<insert id="insert">
+  		INSERT INTO TBL_BOARD(BNO,TITLE,CONTENT,WRITER) 
+  		<!-- NEXTVAL:해당 시퀀스의 값 증가시킴 -->
+  		VALUES (SEQ_BOARD.NEXTVAL,#{title},#{content},#{writer})
+  	</insert>
+  	
+	<!-- 마지막 시퀀스기준 하나 증가시킨 시퀀스에 INSERT시킴 -->
+  	<insert id="insertSelectKey">
+		<selectKey order="BEFORE" keyProperty="bno" resultType="long">
+		SELECT SEQ_BOARD.NEXTVAL FROM DUAL
 		</selectKey>
-		insert into tbl_board (bno,title,content,writer)
-		values(#{bno},#{title},#{content},#{writer})
-	</insert>
+		INSERT INTO TBL_BOARD(BNO,TITLE,CONTENT,WRITER) 
+		VALUES (#{bno},#{title},#{content},#{writer})
+  	</insert>
 	
-	<select id="read" resultType="com.kimjaeeun.domain.BoardVO">
+	<select id="read" resultType="board">
 		select * from tbl_board where bno = #{bno}
 	</select>
 	

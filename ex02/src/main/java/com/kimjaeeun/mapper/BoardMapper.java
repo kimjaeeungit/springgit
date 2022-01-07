@@ -2,15 +2,15 @@ package com.kimjaeeun.mapper;
 
 import java.util.List;
 
-import com.kimjaeeun.domain.BoardVO;
+import com.kimjaeeun.domain.BoardVo;
 
 public interface BoardMapper {
-	public List<BoardVO> getList();
+	List<BoardVo> getList();
 	//insert만 처리되고 생성된 pk값을 알 필요가 없는 경우
-	public void insert(BoardVO board);
+	void insert(BoardVo board);
 	//insert문이 실행되고 생성된 pk값을 알아햐 하는 경우
-	public void insertSelectKey(BoardVO board);
-	public BoardVO read(Long bno);
-	public int delete(Long bno);
-	public int update(BoardVO board);
+	void insertSelectKey(BoardVo board);
+	BoardVo read(Long bno);
+	int delete(Long bno);
+	int update(BoardVo board);
 }
